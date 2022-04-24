@@ -203,6 +203,8 @@ namespace Tetris
             //Check if score comes on high score list
             if (gameState.Score > Properties.Settings.Default.FifthScoreHighScore)
             {
+                GetHighScorePlayerName(); 
+
                 HighScores.Add(new HighScoreModel(Properties.Settings.Default.CurrentPlayerS, gameState.Score));
 
                 SortNewHighScores();
@@ -251,16 +253,17 @@ namespace Tetris
         {
             await GameLoop();
         }
-        private void ShowChangePlayerDialog(object sender, RoutedEventArgs e)
+        private void GetHighScorePlayerName()
         {
-            PlayerInputDialog inputDialog = new PlayerInputDialog("Please enter your name:", " ");
+            PlayerInputDialog inputDialog = new PlayerInputDialog("Wow! That was a high score:) " + "\n" +
+                "Please enter your name:", " ");
             if (inputDialog.ShowDialog() == true)
             {
                 Properties.Settings.Default.CurrentPlayerS = inputDialog.Answer;
                 Properties.Settings.Default.Save();
             }
             
-            this.Focus();
+          
         }
 
         private async void PlayAgain_Click(object sender, RoutedEventArgs e)
